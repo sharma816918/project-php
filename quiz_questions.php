@@ -1,4 +1,4 @@
-```php
+
 <?php
 session_start();
 
@@ -226,4 +226,3 @@ function e($value) {
 
 </body>
 </html>
-```
