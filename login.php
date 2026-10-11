@@ -1,5 +1,5 @@
-<?php
 
+<?php
 session_start();
 
 $conn = new mysqli("localhost", "root", "", "online-quiz");
@@ -15,158 +15,263 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST["email"] ?? "");
     $password = $_POST["password"] ?? "";
 
-    // Find user from database
-    $stmt = $conn->prepare(
-        "SELECT id, name, email, password, role
-         FROM users
-         WHERE email = ?"
-    );
+    if (empty($email) || empty($password)) {
+        $message = "Please enter email and password!";
+    } else {
 
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
+        $stmt = $conn->prepare(
+            "SELECT id, name, email, password, role
+             FROM users
+             WHERE email = ?"
+        );
 
-    $result = $stmt->get_result();
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
 
-    if ($result->num_rows == 1) {
+        $result = $stmt->get_result();
 
-        $user = $result->fetch_assoc();
+        if ($result->num_rows == 1) {
 
-        // Verify password
-        if (password_verify($password, $user["password"])) {
+            $user = $result->fetch_assoc();
 
-            // Create session
-            $_SESSION["user_id"] = $user["id"];
-            $_SESSION["name"] = $user["name"];
-            $_SESSION["email"] = $user["email"];
-            $_SESSION["role"] = $user["role"];
+            if (password_verify($password, $user["password"])) {
 
-            // Check user role
-            if ($user["role"] == "admin") {
+                session_regenerate_id(true);
 
-                header("Location: admin_dashboard.php");
-                exit();
+                $_SESSION["user_id"] = $user["id"];
+                $_SESSION["name"] = $user["name"];
+                $_SESSION["email"] = $user["email"];
+                $_SESSION["role"] = $user["role"];
+
+                if ($user["role"] == "admin") {
+                    header("Location: admin_dashboard.php");
+                    exit();
+                } else {
+                    header("Location: dashboard.php");
+                    exit();
+                }
 
             } else {
-
-                header("Location: dashboard.php");
-                exit();
+                $message = "Invalid email or password!";
             }
 
         } else {
-
             $message = "Invalid email or password!";
         }
 
-    } else {
-
-        $message = "Invalid email or password!";
+        $stmt->close();
     }
-
-    $stmt->close();
 }
 
 $conn->close();
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login - Online Quiz Management System</title>
+    <title>Login | Online Quiz Management System</title>
 
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css?v=10">
+            background:
+                linear-gradient(
+                    rgba(5, 18, 42, 0.65),
+                    rgba(5, 18, 42, 0.65)
+                ),
+                url('image/background.jpg') center center / cover no-repeat fixed;
+        }
 
+        .login-container {
+            width: 100%;
+            max-width: 430px;
+            padding: 40px 35px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .logo {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e7efff;
+            font-size: 36px;
+        }
+
+        h1 {
+            color: #142b52;
+            font-size: 29px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #667085;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            color: #243550;
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d5ddeb;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+            background: #fff;
+        }
+
+        .input-group input:focus {
+            border-color: #3168e0;
+            box-shadow: 0 0 0 3px rgba(49, 104, 224, 0.12);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #2456d8, #4488f5);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(36, 86, 216, 0.3);
+        }
+
+        .message {
+            padding: 11px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+            color: #b42318;
+            background: #feeceb;
+            font-size: 13px;
+        }
+
+        .register-link {
+            margin-top: 22px;
+            color: #667085;
+            font-size: 14px;
+        }
+
+        .register-link a {
+            color: #2456d8;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 22px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
 </head>
 
-<body class="login-body">
+<body>
 
-    <div class="login-page">
+    <div class="login-container">
 
-        <div class="login-container">
+        <div class="logo">🎓</div>
 
-            <h1>Welcome Back</h1>
+        <h1>Welcome Back!</h1>
 
-            <p class="login-subtitle">
-                Login to continue playing quizzes
-            </p>
+        <p class="subtitle">
+            Login to continue playing quizzes
+        </p>
 
-            <?php if ($message != "") { ?>
+        <?php if (!empty($message)) { ?>
+            <div class="message">
+                <?php echo htmlspecialchars($message); ?>
+            </div>
+        <?php } ?>
 
-                <p style="color: red; text-align: center;">
-                    <?php echo htmlspecialchars($message); ?>
-                </p>
+        <form action="login.php" method="POST">
 
-            <?php } ?>
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
 
-            <form action="login.php" method="POST">
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
 
-                <div class="form-group">
+            <button type="submit" class="login-btn">
+                Login
+            </button>
 
-                    <label>Email Address</label>
+        </form>
 
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        required
-                    >
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Password</label>
-
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        required
-                    >
-
-                </div>
-
-                <button type="submit">
-                    Login
-                </button>
-
-            </form>
-
-            <p class="register-text">
-
-                Don't have an account?
-
-                <a href="register.php">
-                    Register here
-                </a>
-
-            </p>
-
-        </div>
+        <p class="register-link">
+            Don't have an account?
+            <a href="register.php">Register Now</a>
+        </p>
 
     </div>
 
 </body>
-
 </html>

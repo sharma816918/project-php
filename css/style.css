@@ -1,644 +1,700 @@
+
+/* ========================================
+   ONLINE QUIZ MANAGEMENT SYSTEM
+   Complete Website CSS
+======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #5b5ce2;
+    --primary-dark: #4546c8;
+    --secondary: #06b6d4;
+    --background: #f4f6fc;
+    --surface: #ffffff;
+    --text: #202442;
+    --muted: #747b96;
+    --border: #e4e8f2;
+    --success: #16a36a;
+    --danger: #e5484d;
+    --shadow: 0 12px 35px rgba(39, 48, 100, 0.09);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* =========================
-   COMMON BODY
-========================= */
-
-body {
-    min-height: 100vh;
-    font-family: 'Poppins', sans-serif;
+html {
+    scroll-behavior: smooth;
 }
 
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.7;
+}
 
-/* =========================
-   FIRST / HOME PAGE
-========================= */
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: 0.25s ease;
+}
 
-body:not(.register-body):not(.login-body) {
-    background: #050816;
-    color: white;
+a:hover {
+    color: var(--primary-dark);
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button,
+input[type="submit"] {
+    cursor: pointer;
+}
+
+button,
+input[type="submit"],
+.btn {
+    display: inline-block;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 22px;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+button:hover,
+input[type="submit"]:hover,
+.btn:hover {
+    background: var(--primary-dark);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+h1,
+h2,
+h3,
+h4 {
+    line-height: 1.35;
+    margin-bottom: 16px;
+    color: var(--text);
+}
+
+h1 {
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 800;
+}
+
+h2 {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 19px;
+    font-weight: 600;
+}
+
+p {
+    margin-bottom: 12px;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #414866;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #dce1ee;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(91, 92, 226, 0.12);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+::placeholder {
+    color: #a0a6b9;
+}
+
+/* ========================================
+   HOME PAGE
+======================================== */
+
+body:has(.container) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    background:
+        radial-gradient(circle at top left, #dfe3ff, transparent 40%),
+        linear-gradient(135deg, #f5f7ff, #e9edff);
 }
 
 .container {
-    min-height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
+    width: 100%;
+    max-width: 760px;
+    padding: 65px 35px;
     text-align: center;
-
-    padding: 30px 20px;
-
-    background:
-        radial-gradient(
-            circle at 50% 40%,
-            rgba(0, 217, 255, 0.15),
-            transparent 40%
-        ),
-        radial-gradient(
-            circle at 80% 80%,
-            rgba(255, 0, 170, 0.12),
-            transparent 35%
-        ),
-        #050816;
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
 }
 
 .container h1 {
-    font-family: 'Orbitron', sans-serif;
-
-    font-size: 48px;
-    font-weight: 700;
-
-    max-width: 1000px;
-
-    margin-bottom: 25px;
-
-    color: #ffffff;
-
-    text-shadow:
-        0 0 10px rgba(0, 217, 255, 0.8),
-        0 0 25px rgba(0, 217, 255, 0.5);
+    color: var(--primary);
+    margin-bottom: 15px;
 }
 
 .container p {
-    font-family: 'Poppins', sans-serif;
-
-    font-size: 17px;
-
-    color: #b8c7d9;
-
-    margin-bottom: 35px;
+    color: var(--muted);
+    margin-bottom: 28px;
 }
-
-
-/* =========================
-   HOME BUTTONS
-========================= */
 
 .buttons {
     display: flex;
-    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
 }
 
 .buttons a {
-    display: inline-block;
-
-    padding: 14px 32px;
-
-    border-radius: 8px;
-
-    text-decoration: none;
-
-    font-family: 'Poppins', sans-serif;
-
-    font-weight: 600;
-
-    transition: 0.3s;
-}
-
-
-/* LOGIN */
-
-.buttons a:first-child {
-    background: #00aeea;
-
+    min-width: 140px;
+    padding: 12px 25px;
+    background: var(--primary);
     color: white;
-
-    box-shadow:
-        0 0 10px rgba(0, 174, 234, 0.7),
-        0 0 25px rgba(0, 174, 234, 0.4);
+    border-radius: 10px;
+    font-weight: 600;
 }
 
-.buttons a:first-child:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 0 20px rgba(0, 174, 234, 0.9),
-        0 0 40px rgba(0, 174, 234, 0.5);
+.buttons a:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
 }
 
+/* ========================================
+   LOGIN PAGE
+======================================== */
 
-/* REGISTER */
-
-.buttons a:last-child {
-    color: #ff4acb;
-
-    border: 1px solid #ff4acb;
-
-    box-shadow:
-        0 0 10px rgba(255, 74, 203, 0.4);
-}
-
-.buttons a:last-child:hover {
-    background: rgba(255, 74, 203, 0.1);
-
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 0 20px rgba(255, 74, 203, 0.7);
-}
-
-
-/* =========================
-   REGISTER PAGE
-========================= */
-
+.login-body,
 .register-body {
-    min-height: 100vh;
-
-    background-image:
-        linear-gradient(
-            rgba(5, 8, 22, 0.25),
-            rgba(5, 8, 22, 0.25)
-        ),
-        url("../image/register.jpg");
-
-    background-size: cover;
-
-    background-position: center;
-
-    background-repeat: no-repeat;
-
-    background-attachment: fixed;
-}
-
-.register-page {
-    min-height: 100vh;
-
     display: flex;
-
-    justify-content: center;
-
     align-items: center;
-
-    padding: 30px 20px;
+    justify-content: center;
+    padding: 30px 18px;
+    background:
+        radial-gradient(circle at 10% 10%, #e0e5ff, transparent 35%),
+        linear-gradient(135deg, #f4f6ff, #e9edff);
 }
 
+.login-page,
+.register-page {
+    width: 100%;
+    max-width: 470px;
+}
 
-/* REGISTER CARD */
-
+.login-container,
 .register-container {
     width: 100%;
-
-    max-width: 600px;
-
-    padding: 45px 50px;
-
-    background: rgba(255, 255, 255, 0.92);
-
-    border-radius: 18px;
-
-    box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.25);
-
-    text-align: left;
+    padding: 38px;
+    background: var(--surface);
+    border: 1px solid #fff;
+    border-radius: 22px;
+    box-shadow: var(--shadow);
 }
 
-
-/* REGISTER HEADING */
-
+.login-container h1,
 .register-container h1 {
     text-align: center;
-
-    color: #222;
-
-    font-size: 38px;
-
-    font-weight: 700;
-
-    margin-bottom: 10px;
+    font-size: 29px;
+    margin-bottom: 8px;
+    color: var(--primary);
 }
 
-
-/* REGISTER SUBTITLE */
-
+.login-subtitle,
 .register-subtitle {
+    color: var(--muted);
     text-align: center;
-
-    color: #666;
-
-    font-size: 16px;
-
-    margin-bottom: 35px;
+    margin-bottom: 28px;
+    font-size: 14px;
 }
 
-
-/* FORM GROUP */
-
-.form-group {
+.login-container form button,
+.register-container form button {
     width: 100%;
-
-    margin-bottom: 22px;
+    margin-top: 5px;
+    padding: 14px;
 }
 
+.login-text,
+.register-text {
+    margin-top: 24px;
+    margin-bottom: 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+}
 
-/* LABEL */
-
-.form-group label {
-    display: block;
-
-    color: #222;
-
-    font-size: 15px;
-
+.login-text a,
+.register-text a {
     font-weight: 600;
+}
 
+/* ========================================
+   STUDENT DASHBOARD
+======================================== */
+
+.dashboard {
+    width: calc(100% - 36px);
+    max-width: 1000px;
+    margin: 55px auto;
+    padding: 40px;
+    background: var(--surface);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+}
+
+.dashboard > h1 {
+    color: var(--primary);
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.dashboard > h2 {
+    margin-top: 25px;
     margin-bottom: 8px;
 }
 
+.dashboard > p {
+    color: var(--muted);
+}
 
-/* INPUT */
+.user-info {
+    margin: 28px 0;
+    padding: 22px 25px;
+    background: #f7f8ff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
 
-.form-group input {
+.user-info p {
+    margin: 8px 0;
+    overflow-wrap: anywhere;
+}
+
+.user-info strong {
+    display: inline-block;
+    min-width: 75px;
+}
+
+.dashboard-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    margin-top: 28px;
+}
+
+.dashboard-buttons a {
     display: block;
-
-    width: 100%;
-
-    height: 56px;
-
-    padding: 0 16px;
-
-    border: 1px solid #ccc;
-
-    border-radius: 9px;
-
-    background: white;
-
-    color: #222;
-
-    font-family: 'Poppins', sans-serif;
-
-    font-size: 16px;
-
-    outline: none;
-
-    transition: 0.2s;
-}
-
-
-/* PLACEHOLDER */
-
-.form-group input::placeholder {
-    color: #777;
-}
-
-
-/* INPUT FOCUS */
-
-.form-group input:focus {
-    border-color: #888;
-
-    box-shadow:
-        0 0 0 3px rgba(0, 0, 0, 0.08);
-}
-
-
-/* REGISTER BUTTON */
-
-.register-container button {
-    display: block;
-
-    width: 100%;
-
-    height: 56px;
-
-    margin-top: 8px;
-
-    border: none;
-
-    border-radius: 9px;
-
-    background: #333;
-
-    color: white;
-
-    font-family: 'Poppins', sans-serif;
-
-    font-size: 17px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-.register-container button:hover {
-    background: #222;
-}
-
-
-/* LOGIN TEXT */
-
-.login-text {
     text-align: center;
-
-    color: #555;
-
-    font-size: 15px;
-
-    margin-top: 27px;
-}
-
-.login-text a {
-    color: #222;
-
+    padding: 15px;
+    border-radius: 12px;
+    background: #f0f1ff;
+    border: 1px solid #e1e3ff;
+    color: var(--primary);
     font-weight: 600;
-
-    text-decoration: none;
 }
 
-.login-text a:hover {
-    text-decoration: underline;
+.dashboard-buttons a:hover {
+    background: var(--primary);
+    color: #fff;
+    transform: translateY(-2px);
 }
 
+/* ========================================
+   ADMIN DASHBOARD
+======================================== */
 
-/* =========================
-   LOGIN PAGE
-========================= */
-
-.login-body {
-    min-height: 100vh;
-
-    background-image:
-        linear-gradient(
-            rgba(5, 8, 22, 0.25),
-            rgba(5, 8, 22, 0.25)
-        ),
-        url("../image/register.jpg");
-
-    background-size: cover;
-
-    background-position: center;
-
-    background-repeat: no-repeat;
-
-    background-attachment: fixed;
+body:has(> h1:first-child) {
+    padding: 35px 18px;
 }
 
-.login-page {
-    min-height: 100vh;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    padding: 30px 20px;
+body:has(> h1:first-child) > h1,
+body:has(> h1:first-child) > h2,
+body:has(> h1:first-child) > h3,
+body:has(> h1:first-child) > p,
+body:has(> h1:first-child) > hr,
+body:has(> h1:first-child) > a {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+body:has(> h1:first-child) > h1 {
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 16px;
+    color: #fff;
+    background: linear-gradient(135deg, #5b5ce2, #7778f5);
+    box-shadow: var(--shadow);
+}
 
-/* LOGIN CARD */
+body:has(> h1:first-child) > h1 ~ h2,
+body:has(> h1:first-child) > h1 ~ h3 {
+    margin-top: 25px;
+}
 
-.login-container {
-    width: 100%;
+body:has(> h1:first-child) > h1 ~ p {
+    padding: 12px 18px;
+    background: #fff;
+    border-radius: 10px;
+    overflow-wrap: anywhere;
+}
 
-    max-width: 600px;
+body:has(> h1:first-child) > h1 ~ hr {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
 
-    padding: 45px 50px;
+body:has(> h1:first-child) > h1 ~ a {
+    display: inline-block;
+    margin-bottom: 12px;
+}
 
-    background: rgba(255, 255, 255, 0.92);
+/* ========================================
+   QUIZ CATEGORY PAGE
+======================================== */
 
+body:has(form select[name="category"]) {
+    padding: 30px 18px;
+}
+
+body:has(form select[name="category"]) > h1,
+body:has(form select[name="category"]) > p,
+body:has(form select[name="category"]) > hr,
+body:has(form select[name="category"]) > h2,
+body:has(form select[name="category"]) > form,
+body:has(form select[name="category"]) > a {
+    display: block;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body:has(form select[name="category"]) > h1 {
+    margin-top: 25px;
+    padding: 25px;
+    background: linear-gradient(135deg, #5b5ce2, #7778f5);
+    color: #fff;
+    border-radius: 16px;
+}
+
+body:has(form select[name="category"]) > p {
+    color: var(--muted);
+}
+
+body:has(form select[name="category"]) > h2 {
+    margin-top: 25px;
+}
+
+body:has(form select[name="category"]) > form {
+    padding: 30px;
+    background: #fff;
     border-radius: 18px;
+    box-shadow: var(--shadow);
+}
 
-    box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.25);
+body:has(form select[name="category"]) > form button {
+    width: 100%;
+}
 
+body:has(form select[name="category"]) > a {
+    margin-top: 25px;
+}
+
+/* ========================================
+   ADD / EDIT QUESTION FORMS
+======================================== */
+
+body:has(textarea[name="question"]) {
+    padding: 30px 18px;
+}
+
+body:has(textarea[name="question"]) > h1,
+body:has(textarea[name="question"]) > form,
+body:has(textarea[name="question"]) > a {
+    display: block;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body:has(textarea[name="question"]) > h1 {
+    margin-top: 15px;
+    padding: 24px;
+    color: #fff;
+    background: linear-gradient(135deg, #5b5ce2, #7778f5);
+    border-radius: 15px;
+}
+
+body:has(textarea[name="question"]) > form {
+    padding: 30px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+}
+
+body:has(textarea[name="question"]) > form textarea {
+    width: 100% !important;
+    max-width: 100%;
+}
+
+body:has(textarea[name="question"]) > form input[type="text"] {
+    width: 100%;
+}
+
+body:has(textarea[name="question"]) > form button {
+    margin-top: 5px;
+}
+
+body:has(textarea[name="question"]) > a {
+    margin-top: 22px;
+}
+
+/* ========================================
+   MANAGE QUESTIONS
+======================================== */
+
+body:has(a[href="edit_question.php?id="]) {
+    padding: 30px 18px;
+}
+
+body:has(> h1:first-child) > div {
+    max-width: 1000px;
+    margin: 18px auto;
+    padding: 25px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    box-shadow: 0 5px 18px rgba(39, 48, 100, 0.04);
+    overflow-wrap: anywhere;
+}
+
+body:has(> h1:first-child) > div a {
+    display: inline-block;
+    margin-top: 8px;
+    margin-right: 8px;
+    padding: 8px 14px;
+    background: #f0f1ff;
+    color: var(--primary);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+body:has(> h1:first-child) > div a:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+body:has(> h1:first-child) > div a[onclick] {
+    background: #fff0f0;
+    color: var(--danger);
+}
+
+body:has(> h1:first-child) > div a[onclick]:hover {
+    background: var(--danger);
+    color: #fff;
+}
+
+/* ========================================
+   QUIZ QUESTIONS / RESULTS
+======================================== */
+
+.quiz-container,
+.result-container,
+.questions-container {
+    width: calc(100% - 36px);
+    max-width: 900px;
+    margin: 35px auto;
+    padding: 32px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+
+.question-card,
+.quiz-card,
+.result-card {
+    margin: 20px 0;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.question-card label {
+    padding: 10px 12px;
+    background: #f7f8ff;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+.question-card label:hover {
+    background: #eeefff;
+}
+
+.question-card input[type="radio"] {
+    margin-right: 10px;
+    accent-color: var(--primary);
+}
+
+.result-score {
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+/* ========================================
+   ALERT / STATUS MESSAGES
+======================================== */
+
+.success-message {
+    padding: 12px 15px;
+    margin: 15px 0;
+    background: #e9fbf2;
+    border: 1px solid #bcebd1;
+    color: #087b49;
+    border-radius: 9px;
+}
+
+.error-message {
+    padding: 12px 15px;
+    margin: 15px 0;
+    background: #fff0f0;
+    border: 1px solid #ffd0d0;
+    color: #b4232b;
+    border-radius: 9px;
+}
+
+/* ========================================
+   TABLES
+======================================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th,
+td {
+    padding: 13px 15px;
+    border-bottom: 1px solid var(--border);
     text-align: left;
 }
 
-
-/* LOGIN HEADING */
-
-.login-container h1 {
-    text-align: center;
-
-    color: #222;
-
-    font-size: 38px;
-
+th {
+    background: #f0f1ff;
+    color: var(--text);
     font-weight: 700;
-
-    margin-bottom: 10px;
 }
 
-
-/* LOGIN SUBTITLE */
-
-.login-subtitle {
-    text-align: center;
-
-    color: #666;
-
-    font-size: 16px;
-
-    margin-bottom: 35px;
+tr:hover td {
+    background: #fafaff;
 }
 
-
-/* LOGIN FORM */
-
-.login-container .form-group {
-    width: 100%;
-
-    margin-bottom: 22px;
-}
-
-
-/* LOGIN LABEL */
-
-.login-container .form-group label {
-    display: block;
-
-    color: #222;
-
-    font-size: 15px;
-
-    font-weight: 600;
-
-    margin-bottom: 8px;
-}
-
-
-/* LOGIN INPUT */
-
-.login-container .form-group input {
-    display: block;
-
-    width: 100%;
-
-    height: 56px;
-
-    padding: 0 16px;
-
-    border: 1px solid #ccc;
-
-    border-radius: 9px;
-
-    background: white;
-
-    color: #222;
-
-    font-family: 'Poppins', sans-serif;
-
-    font-size: 16px;
-
-    outline: none;
-
-    transition: 0.2s;
-}
-
-.login-container .form-group input::placeholder {
-    color: #777;
-}
-
-.login-container .form-group input:focus {
-    border-color: #888;
-
-    box-shadow:
-        0 0 0 3px rgba(0, 0, 0, 0.08);
-}
-
-
-/* LOGIN BUTTON */
-
-.login-container button {
-    display: block;
-
-    width: 100%;
-
-    height: 56px;
-
-    margin-top: 8px;
-
-    border: none;
-
-    border-radius: 9px;
-
-    background: #333;
-
-    color: white;
-
-    font-family: 'Poppins', sans-serif;
-
-    font-size: 17px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-.login-container button:hover {
-    background: #222;
-}
-
-
-/* REGISTER LINK */
-
-.register-text {
-    text-align: center;
-
-    color: #555;
-
-    font-size: 15px;
-
-    margin-top: 27px;
-}
-
-.register-text a {
-    color: #222;
-
-    font-weight: 600;
-
-    text-decoration: none;
-}
-
-.register-text a:hover {
-    text-decoration: underline;
-}
-
-
-/* BACK HOME */
-
-.back-text {
-    text-align: center;
-
-    margin-top: 15px;
-}
-
-.back-text a {
-    color: #333;
-
-    font-size: 13px;
-
-    text-decoration: none;
-}
-
-.back-text a:hover {
-    color: #00aeea;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 768px) {
-
-    .container h1 {
-        font-size: 32px;
-    }
-
-    .container p {
-        font-size: 14px;
-    }
-
-    .buttons {
-        flex-direction: column;
-
-        width: 220px;
-    }
-
-    .buttons a {
-        text-align: center;
-    }
-}
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
 
 @media (max-width: 600px) {
-
-    .register-container,
-    .login-container {
-        padding: 32px 22px;
+    .login-container,
+    .register-container {
+        padding: 25px 20px;
     }
 
-    .register-container h1,
-    .login-container h1 {
-        font-size: 29px;
+    .dashboard {
+        margin: 20px auto;
+        padding: 24px 18px;
     }
 
-    .register-subtitle,
-    .login-subtitle {
-        font-size: 14px;
+    .dashboard-buttons {
+        grid-template-columns: 1fr;
     }
 
-    .form-group input,
-    .login-container .form-group input {
-        height: 50px;
-
-        font-size: 14px;
+    .container {
+        padding: 40px 20px;
     }
 
-    .register-container button,
-    .login-container button {
-        height: 50px;
+    body:has(textarea[name="question"]) > form,
+    body:has(form select[name="category"]) > form {
+        padding: 22px 18px;
+    }
+
+    body:has(> h1:first-child) {
+        padding: 18px 12px;
+    }
+
+    .quiz-container,
+    .result-container,
+    .questions-container {
+        padding: 22px 16px;
+    }
+
+    th,
+    td {
+        padding: 9px;
+        font-size: 13px;
     }
 }
